@@ -17,3 +17,10 @@ popd
 # Copy into place
 rm -rvf lab/tools
 cp -rv install-dir lab/tools
+
+# Package up lab
+rm -vf fun-lab.tar.gz
+make -C lab clean
+pushd lab
+    tar czvf ../fun-lab.tar.gz *
+popd
