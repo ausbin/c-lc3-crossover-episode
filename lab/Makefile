@@ -7,7 +7,7 @@ default: runme.asm
 main.asm: main.c
 	$(TOOLS)/lcc -L $< -o $@
 
-runme.asm: main.asm fib.asm
+runme.asm: main.asm sumtorial.asm
 	cat $^ >$@
 
 clean:

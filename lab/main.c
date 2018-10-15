@@ -1,24 +1,22 @@
 #include <stdio.h>
 
 // This is a function pointer. You will learn about this later --- for
-// now, don't worry about it
-static int (*fib_asm)(int) = (int (*)(int))0x8000U;
+// now, don't worry about it. All you need to know is that points at
+// your assembly code, which is at 0x8000
+static int (*sumtorial_asm)(int) = (int (*)(int))0x8000U;
 
-int fib_c(int n) {
-    if (n == 0 || n == 1) {
-        return n;
-    } else {
-        return n + fib_c(n - 1);
-    }
+int sumtorial_c(int n) {
+    //
+    // YOUR CODE HERE
+    //
 }
 
 int main(void) {
-    int i;
-
-    for (i = 0; i <= 32; i++) {
-        printf("fib_asm(%d) = %d\n", i, fib_asm(i));
-        printf("fib_c(%d) = %d\n", i, fib_c(i));
-    }
+    //
+    // YOUR CODE HERE
+    // Hint: you need to call both sumtorial_c() and sumtorial_asm()
+    //       from 0 to 32 inclusive
+    //
 
     return 0;
 }

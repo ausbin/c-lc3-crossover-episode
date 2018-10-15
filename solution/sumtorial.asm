@@ -1,5 +1,5 @@
 .orig x8000
-fib
+sumtorial
 ; setup
 add r6, r6, -2
 str r7, r6, 0
@@ -15,7 +15,7 @@ brz return
 
 add r6, r6, -1
 str r0, r6, 0
-jsr fib
+jsr sumtorial
 ldr r1, r6, 0
 add r6, r6, 2
 ldr r0, r5, 4
