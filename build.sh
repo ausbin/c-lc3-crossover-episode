@@ -1,5 +1,6 @@
 #!/bin/bash
 git submodule update --init
+rm -rvf install-dir
 pushd lc3tools
     ./configure --installdir "$(pwd)/../install-dir"
     make OS_SIM_LIBS= install
@@ -12,3 +13,7 @@ popd
 pushd install-dir
     rm -f lc3convert lc3sim lc3sim-tk
 popd
+
+# Copy into place
+rm -rvf lab/tools
+cp -rv install-dir lab/tools

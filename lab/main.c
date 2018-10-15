@@ -2,7 +2,7 @@
 
 // This is a function pointer. You will learn about this later --- for
 // now, don't worry about it
-static int (*fib_asm)(int) = (int (*)(int))0x8000;
+static int (*fib_asm)(int) = (int (*)(int))0x8000U;
 
 int main(void) {
     int i;
