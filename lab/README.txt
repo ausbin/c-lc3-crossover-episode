@@ -74,7 +74,7 @@ Exercise 3. Finally, let's test our code.
             will happen and it will be your fault sorry buddy.
 
             Let's use this hack. Write a loop in main() in `main.c' that
-            tests inputs 0 through 32 exclusive for both sumtorial_asm()
+            tests inputs 0 through 32 inclusive for both sumtorial_asm()
             and sumtorial_c(), and prints the results. (Hint: Google
             printf().) The output needs to look something like this:
 
