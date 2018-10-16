@@ -2,13 +2,18 @@ TOOLS = tools
 
 .PHONY: default clean
 
-default: runme.asm
+default: runme.asm runme_to_test_asm.asm
 
 main.asm: main.c
-	LD_PRELOAD= $(TOOLS)/lcc -L $< -o $@
+# What do you do when you're a super good and competent TA and you can't
+# figure out how to silence an error? Filter it out, of course!
+	LD_PRELOAD= $(TOOLS)/lcc -L $< -o $@ 2>&1 | grep -v 'main.c:5: .* overflow in converting' | cat
 
 runme.asm: main.asm sumtorial.asm
 	cat $^ >$@
 
+runme_to_test_asm.asm: sumtorial.asm
+	{ printf '.orig x7FFD\nhalt\nSTACK .fill xf000\n.end\n\n'; cat $<; } >$@
+
 clean:
-	rm -f main.asm runme.asm
+	rm -f main.asm runme*.asm
