@@ -1,22 +1,30 @@
 #!/bin/bash
+set -e
+
 git submodule update --init
-rm -rvf install-dir
+rm -rvf tools
+mkdir tools
 pushd lc3tools
-    ./configure --installdir "$(pwd)/../install-dir"
+    ln -srvTf ../tools tools
+    ./configure --installdir "tools/"
     make OS_SIM_LIBS= install
 popd
 pushd lcc-lc3
-    ./configure --installdir "$(pwd)/../install-dir"
-    make install
+    ln -srvTf ../tools tools
+    # Author of this library is a braindead idiot
+    find . -name Makefile.def -not -path './src*' -exec sed -i -e "s*__TOP_DIR__*__INSTALL_DIR__*g" {} \;
+    ./configure --installdir "tools/"
+    make BASEDIR=tools/ install
 popd
 # Don't need all this shit
-pushd install-dir
+pushd tools
     rm -f lc3convert lc3sim lc3sim-tk
 popd
 
 # Copy into place
 rm -rvf lab/tools
-cp -rv install-dir lab/tools
+cp -rv tools lab/tools
+cp -rv lcc-lc3/lc3lib lab/tools/lc3lib
 
 # Package up lab
 rm -vf fun-lab.tar.gz
