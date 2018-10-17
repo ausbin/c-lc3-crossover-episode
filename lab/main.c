@@ -3,19 +3,28 @@
 // This is a function pointer. You will learn about this later --- for
 // now, don't worry about it. All you need to know is that points at
 // your assembly code, which is at 0x8000
-static int (*sumtorial_asm)(int) = (int (*)(int))0x8000U;
+static int (*nice_asm)(void) = (int (*)(void))0x8000U;
 
-int sumtorial_c(int n) {
+int nice_c(void) {
     //
-    // YOUR CODE HERE
+    // YOUR EXERCISE 2 CODE HERE
     //
+    // Reminder the pseudocode is:
+    //
+    //     sum = 0
+    //
+    //     for i = 0 to 69 inclusive:
+    //         sum += i
+    //
+    //     return sum
 }
 
 int main(void) {
     //
-    // YOUR CODE HERE
-    // Hint: you need to call both sumtorial_c() and sumtorial_asm()
-    //       from 0 to 32 inclusive
+    // YOUR EXERCISE 3 CODE HERE
+    //
+    // Hint: you need to call both nice_c() and nice_asm() and pass the
+    //       results to printf() in the form specified in README.txt
     //
 
     return 0;

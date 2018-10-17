@@ -10,19 +10,24 @@
                                                |_|                       
 
                        a lab brought to you by
-                     austin adams and cem gokmen
+                    austin adams feat. cem gokmen
 =========================================================================
 
-In this lab, you will implement sumtorial(), a function I just made up
-defined as:
+In this lab, you will implement the following pseudocode TWICE, once in
+assembly, and once in C:
 
-                   /  n                     if n == 0 or n == 1
-    sumtorial(n) = |
-                   \  n + sumtorial(n - 1)  otherwise
+    function nice():
+        sum = 0
 
-Exercise 1. Implement the sumtorial subroutine in LC-3 assembly in
-            `sumtorial.asm'. It's a long story, but please do NOT touch
-            R4.
+        for i = 0 to 69 inclusive:
+            sum += i
+
+        return sum
+
+Exercise 1. Implement the pseudocode above in LC-3 assembly in
+            `nice.asm'. We have provided the setup and teardown code
+            (including callee saving registers), so don't worry about
+            that. Just make sure to put your return value in R0.
 
             Each time before you test it in complx, run the following
             command, which will run the Makefile:
@@ -30,66 +35,63 @@ Exercise 1. Implement the sumtorial subroutine in LC-3 assembly in
                 $ make runme_to_test_asm.asm
 
             This will create a new file, `runme_to_test_asm.asm', which
-            you can load in Complx and use ``Debug'' > ``Simulate
-            Subroutine Call.'' Before proceeding, use ``Simulate
-            Subroutine Call'' to test the following three inputs:
+            you can load in Complx. Before proceeding, use ``Simulate
+            Subroutine Call'' to call nice().
 
-            sumtorial(1) = 1
-            sumtorial(2) = 3
-            sumtorial(6) = 21
-
-            After running your code, to view the result your puts on the
-            stack, you can press Control-G and enter `xf000'. That will
-            take you to the bottom of the stack, where (in the case of
-            the second test case sumtorial(2) = 3, for example), you'll
-            see something like this:
+            After pressing ``Run'' and making sure it terminates, to
+            view the result your puts on the stack, you can press
+            Control-G and enter `xF000'. That will take you to the
+            bottom of the stack, where you should see:
 
              addr | value
             -------------
-            xEFFE | 3     <-- return value of your function
-            xEFFF | 2     <-- argument pushed by complx
+                 ...
+            xEFFE | 2415    <-- return value of nice(), should be 2415 decimal
             xF000 | ???
+                 ...
 
-            Make sure these three cases are right before continuing,
-            since debugging will be more painful later on.
+            Make sure this works right before continuing, since
+            debugging will be more painful later on.
 
 
-Exercise 2. Now implement sumtorial again in C in the sumtorial_c() function
-            in `main.c'. Much easier, isn't it? This is why God made compilers.
+Exercise 2. Now implement nice() again in C in the nice_c() function
+            in `main.c'. Much less tedious and more readable, right?
 
-            Now run `make' to compile your code and look inside the
-            `main.asm' file it generated. Now answer these two questions
-            about `main.asm':
+            Now run `make'. This runs the Makefile, which generates
+            `main.asm' from `main.c'.
 
-            1. What do you see inside `main.asm'?
+            1. What is inside `main.asm'?
 
-            2. Is this a binary yet?
+            2. Quickly compare the length of the generated code for
+               nice_c() in `main.asm' (it's at around line 20 for me)
+               with the length of your hand-written implementation in
+               `nice.asm'. Eyeballing it, how much of a difference is
+               there?
+
+            3. What is this .c -> .asm generation process called?
+
+            4. If you look in the Makefile, you'll see that it runs a
+               program called lcc to generate the .asm file from the .c
+               file. What is lcc, then?
+
+            5. Is `main.asm' a binary yet? If so, why? If not, what step
+               remains? (Multiple possible answers here)
 
 
 Exercise 3. Finally, let's test our code.
 
             We've provided a hack that allows you to invoke your
-            hand-written assembly sumtorial() solution from C by calling
-            sumtorial_asm(). Do NOT write `sumtorial()' or weird things
-            will happen and it will be your fault sorry buddy.
+            hand-written assembly nice() solution from C by calling
+            nice_asm(). Do NOT write `nice()' in your C code or weird
+            things will happen and it will be your fault sorry buddy.
 
-            Let's use this hack. Write a loop in main() in `main.c' that
-            tests inputs 0 through 32 inclusive for both sumtorial_asm()
-            and sumtorial_c(), and prints the results. (Hint: Google
-            printf().) The output needs to look something like this:
+            Let's use this hack. Write some code in main() in `main.c'
+            that calls both nice_asm() and nice_c(), and prints the
+            results. The output needs to look exactly like this (hint:
+            Google printf):
 
-                sumtorial_asm(0) = 0
-                sumtorial_c(0)   = 0
-                sumtorial_asm(1) = 1
-                sumtorial_c(1)   = 1
-                sumtorial_asm(2) = 3
-                sumtorial_c(2)   = 3
-                ...
-                sumtorial_c(30)   = 465
-                sumtorial_asm(31) = 496
-                sumtorial_c(31)   = 496
-                sumtorial_asm(32) = 528
-                sumtorial_c(32)   = 528
+                nice_asm() = 2415 = 0x96F
+                nice_c()   = 2415 = 0x96F
 
             To build the final assembly file, run
 
@@ -104,72 +106,8 @@ Exercise 3. Finally, let's test our code.
             When you click ``Run'', you should get the following output
             in the I/O window:
 
-                sumtorial_asm(0) = 0
-                sumtorial_c(0)   = 0
-                sumtorial_asm(1) = 1
-                sumtorial_c(1)   = 1
-                sumtorial_asm(2) = 3
-                sumtorial_c(2)   = 3
-                sumtorial_asm(3) = 6
-                sumtorial_c(3)   = 6
-                sumtorial_asm(4) = 10
-                sumtorial_c(4)   = 10
-                sumtorial_asm(5) = 15
-                sumtorial_c(5)   = 15
-                sumtorial_asm(6) = 21
-                sumtorial_c(6)   = 21
-                sumtorial_asm(7) = 28
-                sumtorial_c(7)   = 28
-                sumtorial_asm(8) = 36
-                sumtorial_c(8)   = 36
-                sumtorial_asm(9) = 45
-                sumtorial_c(9)   = 45
-                sumtorial_asm(10) = 55
-                sumtorial_c(10)   = 55
-                sumtorial_asm(11) = 66
-                sumtorial_c(11)   = 66
-                sumtorial_asm(12) = 78
-                sumtorial_c(12)   = 78
-                sumtorial_asm(13) = 91
-                sumtorial_c(13)   = 91
-                sumtorial_asm(14) = 105
-                sumtorial_c(14)   = 105
-                sumtorial_asm(15) = 120
-                sumtorial_c(15)   = 120
-                sumtorial_asm(16) = 136
-                sumtorial_c(16)   = 136
-                sumtorial_asm(17) = 153
-                sumtorial_c(17)   = 153
-                sumtorial_asm(18) = 171
-                sumtorial_c(18)   = 171
-                sumtorial_asm(19) = 190
-                sumtorial_c(19)   = 190
-                sumtorial_asm(20) = 210
-                sumtorial_c(20)   = 210
-                sumtorial_asm(21) = 231
-                sumtorial_c(21)   = 231
-                sumtorial_asm(22) = 253
-                sumtorial_c(22)   = 253
-                sumtorial_asm(23) = 276
-                sumtorial_c(23)   = 276
-                sumtorial_asm(24) = 300
-                sumtorial_c(24)   = 300
-                sumtorial_asm(25) = 325
-                sumtorial_c(25)   = 325
-                sumtorial_asm(26) = 351
-                sumtorial_c(26)   = 351
-                sumtorial_asm(27) = 378
-                sumtorial_c(27)   = 378
-                sumtorial_asm(28) = 406
-                sumtorial_c(28)   = 406
-                sumtorial_asm(29) = 435
-                sumtorial_c(29)   = 435
-                sumtorial_asm(30) = 465
-                sumtorial_c(30)   = 465
-                sumtorial_asm(31) = 496
-                sumtorial_c(31)   = 496
-                sumtorial_asm(32) = 528
-                sumtorial_c(32)   = 528
+                nice_asm() = 2415 = 0x96F
+                nice_c()   = 2415 = 0x96F
 
             Show this output and your answers from Exercise 2 to a TA.
-            If the output matches, you're done! Good work bud
+            If they're cool with it, you're done! Good work bud

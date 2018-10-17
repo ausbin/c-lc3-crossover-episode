@@ -1,24 +1,29 @@
 #include <stdio.h>
 
 // This is a function pointer. You will learn about this later --- for
-// now, don't worry about it
-static int (*sumtorial_asm)(int) = (int (*)(int))0x8000U;
+// now, don't worry about it. All you need to know is that points at
+// your assembly code, which is at 0x8000
+static int (*nice_asm)(void) = (int (*)(void))0x8000U;
 
-int sumtorial_c(int n) {
-    if (n == 0 || n == 1) {
-        return n;
-    } else {
-        return n + sumtorial_c(n - 1);
-    }
+int nice_c(void) {
+    int i, n;
+
+    n = 0;
+
+    for (i = 0; i <= 69; i++)
+        n += i;
+
+    return n;
 }
 
 int main(void) {
-    int i;
+    int a;
 
-    for (i = 0; i <= 32; i++) {
-        printf("sumtorial_asm(%d) = %d\n", i, sumtorial_asm(i));
-        printf("sumtorial_c(%d)   = %d\n", i, sumtorial_c(i));
-    }
+    a = nice_asm();
+    printf("nice_asm() = %d = 0x%x\n", a, a);
+
+    a = nice_c();
+    printf("nice_c()   = %d = 0x%x\n", a, a);
 
     return 0;
 }
