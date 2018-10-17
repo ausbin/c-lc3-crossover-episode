@@ -57,8 +57,13 @@ Exercise 1. Implement the pseudocode above in LC-3 assembly in
 Exercise 2. Now implement nice() again in C in the nice_c() function
             in `main.c'. Much less tedious and more readable, right?
 
-            Now run `make'. This runs the Makefile, which generates
-            `main.asm' from `main.c'.
+            Now run:
+
+                $ make
+
+            This runs the Makefile, which generates `main.asm' from
+            `main.c'. (If you're on a VM and this fails with an error
+            like ``file not found'', run `sudo apt install libc6-i386'.)
 
             1. What is inside `main.asm'?
 
