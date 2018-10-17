@@ -63,15 +63,20 @@ Exercise 2. Now implement nice() again in C in the nice_c() function
 
             This runs the Makefile, which generates `main.asm' from
             `main.c'. (If you're on a VM and this fails with an error
-            like ``file not found'', run `sudo apt install libc6-i386'.)
+            like ``file not found'', run `sudo apt install libc6-i386'.
+            If you're on Docker and you get something like ``file not
+            found'', restart the Docker container by re-running
+            cs2110docker.sh.)
+
+            Write down some short answers to these questions below:
 
             1. What is inside `main.asm'?
 
             2. Quickly compare the length of the generated code for
                nice_c() in `main.asm' (it's at around line 20 for me)
                with the length of your hand-written implementation in
-               `nice.asm'. Eyeballing it, how much of a difference is
-               there?
+               `nice.asm'. Eyeballing it, how much of a difference in
+               length is there?
 
             3. What is this .c -> .asm generation process called?
 
