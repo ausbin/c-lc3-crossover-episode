@@ -46,7 +46,7 @@ Exercise 1. Implement the pseudocode above in LC-3 assembly in
              addr | value
             -------------
                  ...
-            xEFFE | 2415    <-- return value of nice(), should be 2415 decimal
+            xEFFF | 2415    <-- return value of nice(), should be 2415 decimal
             xF000 | ???
                  ...
 
